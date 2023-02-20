@@ -12,15 +12,20 @@ export default function Home() {
   const segitiga = []
   const generateSegitiga = (input) => {
     const splitInput = input.split('') 
-    for (let index = 0; index < splitInput.length; index++) {
-      let row = splitInput[index] + ''
-      for (let j = 0; j <= index; j++) {
-        row += '0';
+    const inputToNumber = parseInt(input)
+    if(inputToNumber){
+      for (let index = 0; index < splitInput.length; index++) {
+        let row = splitInput[index] + ''
+        for (let j = 0; j <= index; j++) {
+          row += '0';
+        }
+        const triangle = segitiga.push(row)
+        console.log(segitiga, "<<<<");
       }
-      const triangle = segitiga.push(row)
-      console.log(segitiga, "<<<<");
+      return setResultSegitiga(segitiga)
+    }else{
+      return setResultSegitiga("input harus Number")
     }
-    return setResultSegitiga(segitiga)
   }
 
   const GenerateByBackend = async (input) => {
@@ -43,10 +48,10 @@ export default function Home() {
       <div className='w-full'>
         <input className='mb-2 border-spacing-3 bg-gray-300' type="text" onChange={e => setInput(e.target.value)} />
         {parseInt(input) || input.length < 1 ? null : <div className='mb-2 text-red-700'>input harus number</div> }
-        <div className='mt-4 mb-6 flex flex-row justify-between w-1/2 text-white'>
-          <button className='py-2 px-2 bg-slate-900 rounded-2xl' onClick={() => generateSegitiga(input)}>Generate Segitiga</button>
-          <button className='py-2 px-2 bg-slate-900 rounded-2xl' onClick={() => GenerateByBackend(input)}>Generate Segitiga dengan Backend</button>
-          <button className='py-2 px-2 bg-slate-900 rounded-2xl'>Generate Bilangan Prima</button>
+        <div className='mt-4 mb-6 flex flex-row justify-between w-3/5 text-white'>
+          <button className='py-2 px-6 bg-slate-900 rounded-lg' onClick={() => generateSegitiga(input)}>Generate Segitiga</button>
+          <button className='py-2 px-6 bg-slate-900 rounded-lg' onClick={() => GenerateByBackend(input)}>Generate Segitiga dengan Backend</button>
+          <button className='py-2 px-6 bg-slate-900 rounded-lg'>Generate Bilangan Prima</button>
         </div>
         <div>Results :</div>
         { resultSegitiga === 'input harus Number' ? input.length < 0 ? null : <div className='mb-2 mt-2 text-red-700'>{resultSegitiga}</div> :
